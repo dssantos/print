@@ -1,0 +1,40 @@
+<style type="text/css">
+    .tg  {border-collapse:collapse;border-spacing:0;}
+    .tg td{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
+    overflow:hidden;padding:10px 5px;word-break:normal;}
+    .tg th{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
+    font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;}
+    .tg .tg-0lax{text-align:left;vertical-align:top}
+</style>
+
+<form action="." method="post"  enctype="multipart/form-data" target="_blank">
+    {{ formset.management_form }}
+    {% csrf_token %}
+    <table class="tg">
+        <thead>
+            <tr>
+                <th class="tg-0lax">Ação</th>
+                <th class="tg-0lax">Quant</th>
+                <th class="tg-0lax">Valor</th>
+                <th class="tg-0lax">Indicado?</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for form in formset %}
+            {% with form_count=forloop.counter0 %}
+            <tr>
+                {% for acao in acoes %}
+                    {% if forloop.counter0 == form_count%}
+                    <td class="tg-0lax">{{ acao.nome }}</td>
+                    <td class="tg-0lax">{{ acao.quantidade }}</td>
+                    <td class="tg-0lax">{{ acao.valor }}</td>
+                    {% endif %}
+                {% endfor %}
+                    <td class="tg-0lax">{% for field in form %}{{ field }}{% endfor %}</td>
+            </tr>
+            {% endwith %}
+            {% endfor %}
+        </tbody>
+    </table>
+    <input type="submit" value="Imprimir"/>
+</form>
