@@ -8,21 +8,25 @@ from django.forms import formset_factory
 acoes = [
     {
         'nome': 'a1',
+        'objeto': 'Software',
         'quantidade': 1,
         'valor': 10,
     },        
     {
         'nome': 'a2',
+        'objeto': 'Hardware',
         'quantidade': 2,
         'valor': 20,
     },        
     {
         'nome': 'a3',
+        'objeto': 'Software',
         'quantidade': 3,
         'valor': 30,
     },        
     {
         'nome': 'a4',
+        'objeto': 'Software',
         'quantidade': 4,
         'valor': 40,
     }
@@ -43,4 +47,6 @@ def home(request):
             
     else:
         formset = PrintFormSet()
+        for form, acao in zip(formset, acoes):
+            acao['indicacao'] = form
     return render(request, 'index.html', {'acoes': acoes, 'formset': formset})
